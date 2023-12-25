@@ -3,13 +3,18 @@ package SortGUI;
 import java.awt.Color;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
+/**
+ * ソート処理を詰め込んだだけのクラス
+ */
 public class MySort {
 	
 	/**
 	 * バブルソート
-	 * @param array ソートを行うint配列
+	 * @param array  ソートを行うint配列
+	 * @param drawLine	線を描画するメソッド
+	 * @param setColor	描画色を設定するメソッド
+	 * @param repaint	再描画命令をするメソッド
 	 */
 	public void bubbleSort(int[] array,
 			BiConsumer<Integer,Integer> drawLine,
@@ -35,17 +40,21 @@ public class MySort {
 	
 	/**
 	 * 配列のaとbのデータを交換する
-	 * @param array
-	 * @param a
-	 * @param b
+	 * @param array		 	データ配列
+	 * @param a			 	交換するindex
+	 * @param b			 	交換するindex
+	 * @param drawLine		線を描画するメソッド
+	 * @param setColor		描画色を設定するメソッド
+	 * @param repaint		再描画命令をするメソッド
 	 */
 	private void ArraySwap(int[] array, int a, int b,
 			BiConsumer<Integer,Integer> drawLine,
 			Consumer<Color> setColor,
 			Runnable repaint) {
 		
+		// 交換前のデータは白で上書きして消す
 		if(setColor != null) 
-			setColor.accept(Color.white);
+			setColor.accept(Color.white);	
 		if(drawLine != null)
 			drawLine.accept(Integer.valueOf(a), Integer.valueOf(b));
 		
@@ -55,9 +64,9 @@ public class MySort {
 		array[a] = array[b];
 		array[b] = buf;
 		
-		
+		// 交換後のデータを書き込む
 		if(setColor != null) 
-			setColor.accept(Color.black);
+			setColor.accept(Color.black);	
 		if(drawLine != null)
 			drawLine.accept(Integer.valueOf(a), Integer.valueOf(b));
 		if(repaint != null)
@@ -70,7 +79,7 @@ public class MySort {
 	
 	/**
 	 * 配列を表示する
-	 * @param array
+	 * @param array 表示する配列
 	 */
 	private void dbg_arrayPrint(int[] array) {
 		/*String str = new String();
@@ -80,9 +89,13 @@ public class MySort {
 		System.out.println(str);*/
 	}
 	
+	
 	/**
 	 * 挿入ソート
-	 * @param array ソートを行うint配列
+	 * @param array			ソートを行うint配列
+	 * @param drawLine		線を描画するメソッド
+	 * @param setColor		描画色を設定するメソッド
+	 * @param repaint		再描画命令をするメソッド
 	 */
 	public void insertionSort(int[] array,
 			BiConsumer<Integer,Integer> drawLine,
@@ -99,8 +112,11 @@ public class MySort {
 	 * 挿入ソート
 	 * シェルソートでも挿入ソートを使うのでskip追加
 	 * 
-	 * @param array ソートを行うint配列
-	 * @param skip 比較するときのskip数
+	 * @param array 		ソートを行うint配列
+	 * @param skip 			比較するときのskip数
+	 * @param drawLine		線を描画するメソッド
+	 * @param setColor		描画色を設定するメソッド
+	 * @param repaint		再描画命令をするメソッド
 	 * 
 	 */
 	private void insertionSort(int[] array, int skip,
@@ -123,6 +139,9 @@ public class MySort {
 	/**
 	 * シェルソート
 	 * @param array ソートを行うint配列
+	 * @param drawLine		線を描画するメソッド
+	 * @param setColor		描画色を設定するメソッド
+	 * @param repaint		再描画命令をするメソッド
 	 */
 	public void shellSort(int[] array,
 			BiConsumer<Integer,Integer> drawLine,
@@ -142,6 +161,9 @@ public class MySort {
 	/**
 	 * クイックソート
 	 * @param array ソートを行うint配列
+	 * @param drawLine		線を描画するメソッド
+	 * @param setColor		描画色を設定するメソッド
+	 * @param repaint		再描画命令をするメソッド
 	 */
 	public void quickSort(int[] array,
 			BiConsumer<Integer,Integer> drawLine,
@@ -159,6 +181,9 @@ public class MySort {
 	 * @param array ソートを行うint配列
 	 * @param left 
 	 * @param right
+	 * @param drawLine		線を描画するメソッド
+	 * @param setColor		描画色を設定するメソッド
+	 * @param repaint		再描画命令をするメソッド
 	 */
 	private void quickSort(int[] array, int left, int right,
 			BiConsumer<Integer,Integer> drawLine,

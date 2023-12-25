@@ -10,17 +10,23 @@ import java.awt.image.BufferedImage;
 public class PaintCanvas extends Canvas{
 	private static final long serialVersionUID = 1L;
 	
-	private BufferedImage image = null;
-	private Graphics2D g2;
-	private int width,height;
+	private BufferedImage image = null;		// Canvasに直接描かないでBufferImageに描きこみ
+											// ImageをCanvasに描画するダブルバッファ方式。
+	private Graphics2D g2;					// imageのGraphics2Dインスタンス
+	private int width,height;				// Canvasサイズ
 	
+	/**
+	 * コンストラクタ
+	 * @param w	サイズ
+	 * @param h サイズ
+	 */
 	public PaintCanvas(int w, int h) {
         width = w;
-        height = h;
-        this.setBackground(Color.white);
-        image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-        g2 = (Graphics2D) image.getGraphics();
-        this.cls();
+        height = h;							
+        this.setBackground(Color.white);							// 背景は白
+        image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);// ImageはINT_RGBで生成
+        g2 = (Graphics2D) image.getGraphics();						// Graphics2D取得（描画する際に使用する）
+        this.cls();													// 画面を消去して初期化
     }
 	
 	/**
@@ -29,22 +35,27 @@ public class PaintCanvas extends Canvas{
 	public void cls() {
 		if(g2 == null) return;
 		
-		g2.setColor(Color.white);
-		g2.fillRect(0, 0, width, height);
+		g2.setColor(Color.white);			// 白設定
+		g2.fillRect(0, 0, width, height);	// 全体を塗りつぶす
 		//g2.clearRect(0, 0, width, height);
 	}
 	
+	/**
+	 * repaint()が呼ばれるとupdate()が呼ばれる
+	 * デフォルトだと余計なことをするのでupdate()はオーバーライドしとく
+	 */
 	public void update(Graphics g) {
 		//super.update(g);
 		paint(g);
 	}
 	/**
 	 * 描画メイン
-	 * 描画するときはrepaint()を呼ぶ
+	 * 描画するときはrepaint()を呼ぶ。このメソッドを直に呼び出さない。
 	 */
 	public void paint(Graphics g) {
 		if(g2 == null) return;
 		
+		// 描画されたImageをCanvasに描画する
 		g.drawImage(image,0,height - this.getHeight(),null);
 	}
 	
